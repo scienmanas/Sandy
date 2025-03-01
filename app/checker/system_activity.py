@@ -1,10 +1,11 @@
 import time
 import psutil
 import socket
+import os
 import platform
 from colorama import Style, Fore
 from app.helpers.genai import get_ai_response_textual
-from app.settings.settings import SYSTEM_CAPTURE_DURATION, DEBUG, SYSTEM_CAPTURE_DURATION_INTERVAL
+from app.settings.settings import SYSTEM_CAPTURE_DURATION, DEBUG,SYSTEM_CAPTURE_DURATION_INTERVAL
 
 
 # Logs printer when DEBUG is True
@@ -20,7 +21,7 @@ def check_system_activity():
     
     # Step 1: Collect initial system data
     print() # For better readability
-    print(f"{Style.BRIGHT}{Fore.YELLOW}Collecting system data (5 seconds)...{Style.RESET_ALL}")
+    print(f"{Style.BRIGHT}{Fore.YELLOW}Collecting system data ({SYSTEM_CAPTURE_DURATION} seconds)...{Style.RESET_ALL}")
     system_data = collect_system_data(duration=SYSTEM_CAPTURE_DURATION)
     
     # Step 2: Analyze the collected data
@@ -30,22 +31,68 @@ def check_system_activity():
     
     # Step 3: Get AI interpretation of the results
     print(f"{Style.BRIGHT}{Fore.YELLOW}Getting AI assessment...{Style.RESET_ALL}")
-    debug_print("Requesting AI assessment")
     ai_assessment = get_ai_assessment(system_data, analysis_results)
-    debug_print(f"AI assessment received: {len(ai_assessment)} characters")
     
-    # Compile and return final results
-    final_results = {
-        "system_data": system_data,
-        "analysis": analysis_results,
-        "ai_assessment": ai_assessment,
-        "timestamp": time.time()
-    }
+    # Get current timestamp
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     
-    debug_print("System activity check complete")
-    return final_results
+    print()
+    if analysis_results["risk_level"] == "High":
+        print(f"{Style.BRIGHT}{Fore.RED}ALERT: [High risk] detected on {timestamp
+        }{Style.RESET_ALL}")
+        print(f"{Style.BRIGHT}{Fore.YELLOW}{analysis_results['risk_score']} Risk Score{Style.RESET_ALL}")
+    elif analysis_results["risk_level"] == "Medium":
+        print(f"{Style.BRIGHT}{Fore.YELLOW}Warning: [Medium risk] detected on {timestamp}{Style.RESET_ALL}")
+        print(f"{Style.BRIGHT}{Fore.YELLOW}{analysis_results['risk_score']} Risk Score{Style.RESET_ALL}")
+    elif analysis_results["risk_level"] == "Low":
+        print(f"{Style.BRIGHT}{Fore.GREEN}Good: [Low risk] detected on {timestamp}{Style.RESET_ALL}")
+        print(f"{Style.BRIGHT}{Fore.GREEN}{analysis_results['risk_level']} Risk Level{Style.RESET_ALL}")
+    
+    # AI assessment results
+    print()
+    print(f"{Style.BRIGHT}{Fore.WHITE}{ai_assessment}{Style.RESET_ALL}")
+    print()
+    
+    # Ensure the reports directory exists
+    reports_dir = "reports"
+    if not os.path.exists(reports_dir):
+        try:
+            os.makedirs(reports_dir)
+            debug_print(f"Created reports directory: {reports_dir}")
+        except Exception as e:
+            debug_print(f"Error creating reports directory: {str(e)}")
+            reports_dir = "."  # Fallback to current directory
+    
+    report_filename = f"system_activity_report_{time.strftime('%Y%m%d_%H%M%S')}.txt"
+    report_path = os.path.join(reports_dir, report_filename)
+    
+    # Save the report to a file
+    try:
+        with open(report_path, "w") as f:
+            f.write(f"System Activity Report\n")
+            f.write(f"Generated on: {timestamp}\n\n")
+            f.write(f"Risk Score: {analysis_results['risk_score']}/100\n")
+            f.write(f"Risk Level: {analysis_results['risk_level']}\n\n")
+            f.write(f"AI Assessment:\n{ai_assessment}\n\n")
+            f.write(f"Detected Anomalies:\n")
+            for anomaly in analysis_results["anomalies"]:
+                f.write(f"- {anomaly}\n")
+        debug_print(f"Report saved to {report_path}")
+    except Exception as e:
+        debug_print(f"Error saving report: {str(e)}")
+    
 
 def collect_system_data(duration=5):
+    """
+    Collects system activity data for the specified duration.
+    
+    Args:
+        duration (int): Duration in seconds to collect data
+        
+    Returns:
+        dict: Collected system data
+    """
+    debug_print(f"Collecting system data for {duration} seconds")
     
     # Initialize data structure
     system_data = {
@@ -65,14 +112,22 @@ def collect_system_data(duration=5):
             "hostname": socket.gethostname()
         }
     }
-     # See the system version and hostname
+    
     debug_print(f"System info: {system_data['system_info']['platform']} on {system_data['system_info']['hostname']}")
-
+    
+    # Get initial network counters
+    try:
+        net_io_start = psutil.net_io_counters()
+        debug_print(f"Initial network counters: sent={net_io_start.bytes_sent}, recv={net_io_start.bytes_recv}")
+    except Exception as e:
+        debug_print(f"Error getting network counters: {str(e)}")
+        net_io_start = None
+    
     # Collect data at intervals
     interval = SYSTEM_CAPTURE_DURATION_INTERVAL  # seconds
     iterations = int(duration / interval)
+    debug_print(f"Will collect {iterations} samples at {interval}s intervals")
     
-    # Perform data capture for the specified number of times
     for i in range(iterations):
         debug_print(f"Collecting sample {i+1}/{iterations}")
         try:
@@ -117,9 +172,7 @@ def collect_system_data(duration=5):
             
             # Process information (top 10 by CPU usage and memory usage)
             processes = []
-            for proc in sorted(psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent', 'username', 'cmdline']), 
-                              key=lambda p: p.info['cpu_percent'] + p.info['memory_percent'], 
-                              reverse=True)[:10]:
+            for proc in sorted(psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent', 'username', 'cmdline']), key=lambda p: p.info['cpu_percent'] + p.info['memory_percent'], reverse=True)[:10]:
                 try:
                     # Get more detailed process information
                     process_info = {
@@ -199,7 +252,7 @@ def analyze_system_data(system_data):
     
     if avg_cpu > 80:
         analysis["anomalies"].append("High CPU usage detected")
-        analysis["risk_score"] += 20
+        analysis["risk_score"] += 30
         debug_print("ANOMALY: High CPU usage detected")
     
     # Analyze memory usage
@@ -211,7 +264,7 @@ def analyze_system_data(system_data):
     
     if avg_memory > 85:
         analysis["anomalies"].append("High memory usage detected")
-        analysis["risk_score"] += 15
+        analysis["risk_score"] += 25
         debug_print("ANOMALY: High memory usage detected")
     
     # Analyze network activity
@@ -225,7 +278,7 @@ def analyze_system_data(system_data):
     # Check for unusual network traffic (more than 5MB in 5 seconds)
     if total_sent > 5 * 1024 * 1024 or total_recv > 5 * 1024 * 1024:
         analysis["anomalies"].append("Unusually high network traffic detected")
-        analysis["risk_score"] += 25
+        analysis["risk_score"] += 35
         debug_print("ANOMALY: Unusually high network traffic detected")
     
     # Analyze processes
@@ -250,7 +303,7 @@ def analyze_system_data(system_data):
             for suspicious_name in suspicious_process_names:
                 if suspicious_name in process["name"].lower():
                     analysis["anomalies"].append(f"Potentially suspicious process detected: {process['name']}")
-                    analysis["risk_score"] += 30
+                    analysis["risk_score"] += 40
                     debug_print(f"ANOMALY: Suspicious process detected: {process['name']}")
             
             # Add to all processes info list (avoid duplicates by PID)
@@ -258,9 +311,7 @@ def analyze_system_data(system_data):
                 all_processes_info.append(process)
     
     # Sort processes by resource usage for the summary
-    sorted_processes = sorted(all_processes_info, 
-                             key=lambda p: (p.get("cpu_percent", 0) + p.get("memory_percent", 0)), 
-                             reverse=True)
+    sorted_processes = sorted(all_processes_info, key=lambda p: (p.get("cpu_percent", 0) + p.get("memory_percent", 0)), reverse=True)
     
     analysis["summary"]["high_cpu_processes"] = list(high_cpu_processes)
     analysis["summary"]["high_memory_processes"] = list(high_memory_processes)
@@ -319,14 +370,13 @@ def get_ai_assessment(system_data, analysis_results):
     Risk Level: {analysis_results.get("risk_level", "Unknown")}
     
     Based on this data, provide a security assessment of the system. 
-    Give an overall summary like this is the concern
+    Give an overall summary don't use escape sequence or markdown or html, give in plain text.
     """
     
     debug_print("Sending prompt to AI service")
     # Get AI analysis
     try:
         ai_assessment = get_ai_response_textual(prompt=prompt)
-        print(ai_assessment)
         debug_print(f"AI assessment received ({len(ai_assessment)} characters)")
     except Exception as e:
         debug_print(f"Error getting AI assessment: {str(e)}")

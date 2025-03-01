@@ -1,0 +1,44 @@
+System Activity Report
+Generated on: 2025-03-01 19:44:18
+
+Risk Score: 25/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall, the system presents a medium security risk based on the provided data. The high memory usage (89.49%) is a significant concern and flagged as an anomaly. While average CPU usage appears low, the process-specific data reveals potential issues.
+
+Specific Concerns:
+
+1. High Memory Usage: The sustained high memory usage could indicate a memory leak, resource exhaustion attack, or the presence of malware consuming excessive memory. This warrants immediate investigation. Identifying which processes are contributing most to this is crucial.
+
+2. kcompactd0 CPU Usage: The kcompactd0 process consuming 29.5% of the CPU is unusually high. This process is responsible for kernel memory compaction. Elevated CPU usage by kcompactd0 often points to memory pressure and fragmentation, which further exacerbates the high memory usage issue. This could also be a sign of a kernel-level exploit or rootkit attempting to hide its activity.
+
+3. Python Process CPU Usage: A python process owned by root consuming 18.0% of the CPU should be investigated. The purpose and origin of this python script must be determined. It could be a legitimate system process, but it is important to verify its authenticity and ensure it is not malicious. Pay special attention to python processes, as they are frequently used for post-exploitation.
+
+4. WebExtensions CPU Usage: The WebExtensions process using 41.0% of the CPU, while running under a normal user (scienmanas), is still high and potentially suspicious. This could be due to a compromised browser extension or malicious code injected into a legitimate extension.
+
+5. User Process Anomaly: "cursor" process using 6.8% memory. This process is unusually high, and could be potential malware or an unwanted process utilizing resources.
+
+Recommendations:
+
+1. Memory Usage Analysis: Investigate the processes contributing most to the high memory usage. Use tools like `top`, `htop`, `pmap`, and `smem` to identify the specific processes and their memory allocation patterns.
+
+2. kcompactd0 Investigation: Determine the cause of the high kcompactd0 CPU usage. Monitor memory fragmentation and consider memory tuning options if appropriate. Check for kernel module integrity if a rootkit is suspected.
+
+3. Python Script Verification: Identify the purpose of the root-owned python script and verify its authenticity. Examine the script's source code and network connections to rule out malicious activity.
+
+4. Browser Extension Audit: Review the installed browser extensions in the browser used by scienmanas. Disable or remove any suspicious or unnecessary extensions. Consider running a malware scan on the browser.
+
+5. Rootkit Scan: Run a rootkit scan to detect potential hidden processes or malicious modifications to the kernel.
+
+6. Monitor System Logs: Closely monitor system logs for any unusual events or errors.
+
+7. Security Hardening: Implement security hardening measures to reduce the risk of future attacks. This includes updating the system, using strong passwords, and restricting user privileges.
+
+The medium risk score indicates that the system requires immediate attention to address the identified security concerns. Failure to investigate and remediate these issues could lead to further compromise.
+
+
+Detected Anomalies:
+- High memory usage detected

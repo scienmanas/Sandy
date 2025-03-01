@@ -1,0 +1,21 @@
+System Activity Report
+Generated on: 2025-03-01 19:45:54
+
+Risk Score: 55/100
+Risk Level: High
+
+AI Assessment:
+Security Assessment:
+
+The system is exhibiting several concerning signs indicating a potential security issue. The very high CPU usage (averaging 97.19%) coupled with high memory usage (90.91%) is a red flag. The fact that multiple Python processes, all owned by the user "scienmanas," are consistently consuming nearly 100% of the CPU each is highly suspicious. This suggests a potential cryptomining operation, a malicious script running in a loop, or another form of resource exhaustion attack.
+
+The relatively small amount of network data sent and received doesn't necessarily rule out malicious activity, as some attacks are designed to be stealthy and minimize network footprint. However, it could also indicate that the high CPU usage is due to a local process rather than external communication.
+
+The detected anomalies (high CPU and memory usage) are aligned with the observed process behavior, further reinforcing the concern. The risk score of 55/100 and a "High" risk level confirms the severity of the situation.
+
+Overall, the system is at high risk. Immediate investigation into the Python processes owned by "scienmanas" is crucial. This should include examining the scripts being executed, network connections being made (if any), and any persistence mechanisms in place. It's imperative to determine whether this is legitimate activity or malicious behavior and take appropriate remediation steps, which may include terminating the processes, isolating the system, and performing a thorough malware scan.
+
+
+Detected Anomalies:
+- High CPU usage detected
+- High memory usage detected
