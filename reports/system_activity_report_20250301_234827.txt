@@ -1,0 +1,37 @@
+System Activity Report
+Generated on: 2025-03-01 23:48:27
+
+Risk Score: 25/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall, the system presents a medium security risk. The most significant concern is the consistently high memory usage (95.03%), which triggers an anomaly detection. While the average CPU usage is low, several processes exhibit concerning CPU usage.
+
+Key observations and concerns:
+
+High Memory Usage: The near-capacity memory usage suggests a potential resource exhaustion issue. This could be due to a memory leak in an application, an excessive number of processes running, or insufficient RAM. This high utilization can make the system sluggish and potentially crash. It also provides an attacker with a denial-of-service opportunity. Investigate what is consuming memory.
+
+kswapd0 CPU Usage: The extremely high CPU usage by kswapd0 (45.3%) is strongly correlated with the high memory usage. kswapd0 is the kernel swap daemon, and its high activity indicates that the system is constantly swapping memory to disk, which significantly degrades performance. Addressing the root cause of the high memory usage will likely alleviate the kswapd0 problem.
+
+Suspicious Python Process: A python process running as root (PID 821102) consuming 19.4% CPU warrants immediate investigation. Python scripts running as root can be extremely dangerous if compromised. Determine the purpose of this script, its origin, and whether it is legitimate. The PID is very high, which may also be suspicious.
+
+Isolated Web Co Processes: The presence of multiple processes named "Isolated Web Co" belonging to user "scienmanas" using significant CPU resources (21.3% and 6.5%) could indicate the presence of a web browser or possibly malware. Investigate these processes and the browser activity of the "scienmanas" user. The high CPU utilization for web-related processes could also indicate cryptojacking.
+
+"cursor" as High CPU Process: The process "cursor" appearing in High CPU Processes (not Top Resource Intensive Processes) may be related to a graphical user interface or terminal emulator. Further investigation into the specific cursor implementation being used and its behavior would be necessary to determine if this is a security concern.
+
+Risk Score: The risk score of 25/100 indicates a moderate level of concern.
+
+Recommendations:
+
+1. Immediately investigate the root cause of the high memory usage and take steps to reduce it. This might involve identifying and terminating memory-hogging processes, optimizing application memory usage, or adding more RAM.
+2. Scrutinize the python process running as root. Determine its purpose and ensure it is legitimate and secure. If the process is not essential, consider disabling or removing it.
+3. Analyze the "Isolated Web Co" processes and the web browsing activity of the "scienmanas" user. Check for suspicious websites, extensions, or installed software. Consider running a malware scan.
+4. Monitor system logs for any unusual activity or errors.
+5. Review system configuration and security settings to ensure they are properly configured.
+6. Keep the operating system and software packages up to date with the latest security patches.
+
+
+Detected Anomalies:
+- High memory usage detected

@@ -1,0 +1,38 @@
+System Activity Report
+Generated on: 2025-03-01 20:46:26
+
+Risk Score: 25/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall, the system exhibits some concerning security indicators, but further investigation is needed to determine the full extent of the risk. The medium risk score of 25/100 reflects these concerns.
+
+Key Concerns:
+
+High Memory Usage: The average memory usage is very high (87.63%). This could indicate a memory leak, a misconfigured application, or even malicious activity like cryptojacking or data hoarding.
+
+Python Process CPU Usage: A Python process (PID 695607) is consuming a relatively high amount of CPU (19.3%) as root. This is suspicious and needs immediate investigation. Python is often used for scripting and automation, and a root-owned process consuming significant CPU could be running malicious code. We need to check the exact file it is executing, where it came from and its function.
+
+Isolated Web Co Process: The process "Isolated Web Co" consuming 6.4% CPU by user "scienmanas" should be scrutinized, especially because of the vague name. This might indicate a sandboxed web application but it is important to investigate it's origin and purpose.
+
+Anomalies: The detected anomaly of high memory usage needs investigation. This is not necessarily malicious but warrants attention.
+
+Recommendations:
+
+Investigate the Python process (PID 695607): Determine the purpose of the Python script and where it originated. Analyze the script's contents for any suspicious or malicious code. Check cron jobs that run this script.
+
+Investigate Isolated Web Co (PID 76291): Determine what this program is and why is it consuming cpu resources.
+
+Analyze Memory Usage: Identify which processes are contributing the most to the high memory usage beyond the currently listed top processes.
+
+Review System Logs: Examine system logs (e.g., /var/log/auth.log, /var/log/syslog, /var/log/kern.log) for any suspicious activity, errors, or warnings that might be related to the high memory usage or the identified processes.
+
+Update System: Ensure the system is up-to-date with the latest security patches.
+
+Implement Monitoring: Improve system monitoring to provide more detailed information about process activity, network connections, and resource usage.
+
+
+Detected Anomalies:
+- High memory usage detected

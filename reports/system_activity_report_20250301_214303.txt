@@ -1,0 +1,48 @@
+System Activity Report
+Generated on: 2025-03-01 21:43:03
+
+Risk Score: 25/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall Summary:
+The system presents a medium security risk (25/100) primarily due to high memory usage. While the CPU usage is generally low, the memory consumption at 92.41% is a significant concern and warrants immediate investigation.
+
+Detailed Analysis:
+
+High Memory Usage: The most critical finding is the consistently high memory usage. This could be due to a memory leak in one or more applications, a misconfigured system, or potentially malicious software attempting to exhaust system resources.
+
+Process Review:
+- python (PID 733739): A python process using 16.4% CPU by the root user is notable. Python scripts can be used for both legitimate system administration tasks and malicious activities. The root user context requires careful scrutiny. Investigate the script being executed by this process to ensure it's legitimate and hasn't been compromised.
+- cursor (PID 351184, 16115, 358597): The presence of multiple "cursor" processes using significant memory (6.0%, 1.7%, 6.3%) by user "scienmanas" is unusual. "cursor" is not a typical process name and might indicate disguised malware or an uncommon application. Investigate the origin and function of these processes.
+- gnome-shell: gnome-shell's CPU and memory usage are relatively normal for a graphical environment.
+
+Network Activity: The network data sent and received appear normal at first glance (around 75KB each). A more detailed analysis would require examining the destination and source IPs, ports, and protocols being used.
+
+Anomalies: The system has flagged "High memory usage" as an anomaly, which corroborates the findings.
+
+Recommendations:
+
+1. Memory Usage Investigation: Immediately identify the processes consuming the most memory and their purpose. Use tools like `top`, `htop`, or `pmap` to get a more detailed breakdown of memory usage.
+
+2. Python Script Review: Determine the python script being run by PID 733739. Verify its integrity and purpose. If unauthorized, terminate the process and investigate the source of the script.
+
+3. "cursor" Process Analysis: Thoroughly investigate the "cursor" processes run by user "scienmanas." Determine their origin (e.g., through `ps -ef | grep cursor`) and function. Scan the system with an updated antivirus or anti-malware tool. Determine if the process has established any network connections.
+
+4. Log Analysis: Review system logs (auth.log, syslog, etc.) for any suspicious activity, failed login attempts, or unusual events.
+
+5. Malware Scan: Perform a full system scan with an updated antivirus or anti-malware solution.
+
+6. Rootkit Check: Run a rootkit detector to identify any hidden processes or files.
+
+7. User Account Review: Review the "scienmanas" user account for any unauthorized changes or access.
+
+8. Update System: Ensure the operating system and all installed software are up-to-date with the latest security patches.
+
+The high memory usage and the presence of unknown processes raise sufficient concerns to warrant immediate action and further investigation. A failure to address these issues could lead to system instability, data breaches, or other security incidents.
+
+
+Detected Anomalies:
+- High memory usage detected

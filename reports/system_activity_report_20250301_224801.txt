@@ -1,0 +1,27 @@
+System Activity Report
+Generated on: 2025-03-01 22:48:01
+
+Risk Score: 25/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall, the system presents a medium security risk (25/100). The high memory usage (89.30%) is a primary concern, as indicated by the detected anomaly. While average CPU usage is low (4.02%), the root-owned Python process (PID 780442) consuming a relatively high 19.5% CPU raises a red flag and warrants immediate investigation. It is crucial to determine the purpose of this Python script and ensure it is legitimate and not malicious.
+
+The "Isolated Web Co" processes, while not consuming excessive CPU individually, should be examined to verify their expected behavior and origin, given they are run by the user 'scienmanas'. High number of them can be an indication of malicious behavior. The cursor processes using a substantial amount of memory also warrant further examination. It is not necessarily malicious, but should still be invesitgated since it is taking a large ammount of the memory.
+
+The low network data transfer volume is not immediately concerning but should be considered in conjunction with the other findings.
+
+Recommendations:
+
+1. Investigate the root-owned Python process (PID 780442) to determine its purpose and legitimacy. Use tools to monitor the python script to determine it's behavior.
+2. Analyze the "Isolated Web Co" processes to ensure they are legitimate and not malicious. Investigate 'scienmanas' user activities.
+3. Examine the memory usage of the cursor processes to understand their high memory footprint.
+4. Implement memory monitoring and alerting to proactively detect similar issues.
+5. Regularly review and update security policies and procedures.
+6. Scan the system for malware and vulnerabilities.
+
+
+Detected Anomalies:
+- High memory usage detected

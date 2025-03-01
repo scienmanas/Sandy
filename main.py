@@ -26,7 +26,7 @@ def handle_user_requests(recognized_text):
 def main():
     recognizer = sr.Recognizer()
     mic = sr.Microphone(device_index=3)
-    recognizer.energy_threshold = 400
+    recognizer.energy_threshold = 200
     recognizer.pause_threshold = 0.8
 
     # Adjust for ambient noise once at startup

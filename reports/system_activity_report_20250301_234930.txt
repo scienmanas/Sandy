@@ -1,0 +1,46 @@
+System Activity Report
+Generated on: 2025-03-01 23:49:30
+
+Risk Score: 25/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall, the system presents a medium security risk. The high memory usage is the primary concern, potentially indicating a memory leak, malware activity, or insufficient memory resources. The kswapd0 process showing high CPU usage further supports this.
+
+Specific Concerns:
+
+High Memory Usage: 94.81% memory usage is dangerously high and needs immediate investigation. This can lead to system instability and performance degradation, and might be masking malicious activity.
+
+kswapd0 CPU Usage: kswapd0 is a kernel process involved in memory management. High CPU usage by kswapd0 suggests the system is heavily swapping, confirming the memory pressure.
+
+Python Process: The python process running as root consuming 17.8% CPU is a concern. Its purpose and legitimacy should be verified, as it could be involved in malicious activity. Investigate what this python process is doing.
+
+Isolated Web Co Processes: Two processes named "Isolated Web Co" running under the user "scienmanas" are consuming significant CPU and memory. The legitimacy and source of these processes should be determined, as they might be related to malicious web activity or vulnerable applications. The unusual naming "Isolated Web Co" itself could be suspicious.
+
+User Account "scienmanas": Investigate the activity associated with the user "scienmanas", as it's running multiple resource-intensive processes that could potentially be compromised. Ensure this user follows the principle of least privilege.
+
+Recommendations:
+
+Investigate Memory Usage: Use tools like 'top', 'htop', 'free -m', and 'pmap' to identify which processes are consuming the most memory and why. Analyze memory usage patterns over time.
+
+Analyze Python Process: Determine the purpose of the python process running as root (PID 821702). Check its associated scripts and dependencies for any suspicious code or configurations.
+
+Examine "Isolated Web Co" Processes: Investigate the source and purpose of the "Isolated Web Co" processes. Verify their legitimacy and update them to the latest versions to patch any known vulnerabilities. Review their network activity.
+
+Audit User Account "scienmanas": Review the activity logs and permissions of the "scienmanas" user account. Enforce strong password policies and multi-factor authentication for all user accounts, especially those with elevated privileges.
+
+Monitor System Performance: Implement a system monitoring solution to track CPU, memory, and network usage over time. Configure alerts to notify administrators of unusual activity or resource exhaustion.
+
+Update System: Ensure the operating system and all installed software are up-to-date with the latest security patches.
+
+Run Malware Scans: Perform a thorough system scan using an anti-malware tool to detect and remove any malicious software.
+
+Consider Memory Upgrade: If the high memory usage is due to legitimate applications, consider upgrading the system's memory to improve performance and stability.
+
+Review Network Activity: Although the network traffic volume is low, review the network connections established by the suspicious processes (python and Isolated Web Co) to identify any unauthorized communication with external hosts.
+
+
+Detected Anomalies:
+- High memory usage detected
