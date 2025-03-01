@@ -4,6 +4,7 @@ from colorama import Style, Fore
 from app.helpers.genai import get_ai_response_json
 from app.checker.phisping import check_link
 from app.checker.system_activity import check_system_activity
+from app.detectors.virus import check_virus_file
 
 
 identity = "You are Sandy, an AI powered security and threat analyzer with a friendly, helpful personality"
@@ -24,7 +25,7 @@ Your response should be in JSON format as shown below.
     {
         "scope": boolean, // Whether the requested action is within the scope of the agent
         "response": string,  // Human-readable response to the user (include occasional emojis to be friendly, no HTML or markdown) and keep it short. Do not reveal the scope.
-        "action_type": string,  // One of: "phishing_check", "system_check", "greeting", or "out_of_scope"
+        "action_type": string,  // One of: "phishing_check", "system_check", "virus_check","greeting", or "out_of_scope"
         "phishing_link": string, // The link to check for phishing (only for phishing_check). If not checking for phishing, this key should not be present.
         "goodbye": string // If the user says stop or exit or goodbye, return this key with a value of "true"  or "false" to indicate if the user wants to end the conversation. always return this key.
     }
@@ -42,8 +43,9 @@ Also, if the user says stop or exit, return a good message in the response and s
 
 def start_agent_flow(query):
     # Get the AI response from
-    promt = f"{identity} {scope} {response_structure} {query} {additionals}"
-    response = get_ai_response_json(prompt=promt)
+
+    prompt = f"{identity} {scope} {response_structure} {query} {additionals}"
+    response = get_ai_response_json(prompt=prompt)
 
     # Parse the response
     try:
@@ -62,9 +64,9 @@ def start_agent_flow(query):
             check_link(link)
         elif action_type == "system_check":
             check_system_activity()
+        elif action_type == "virus_check" :
+            check_virus_file()
 
-        # More featured to be implemented........
-        # TODO 1: Implement the malware checker
         # TODO 2: Implement the dark web scanner
 
     # Handle JSON parsing errors

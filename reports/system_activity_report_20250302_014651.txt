@@ -1,0 +1,32 @@
+System Activity Report
+Generated on: 2025-03-02 01:46:51
+
+Risk Score: 0/100
+Risk Level: Low
+
+AI Assessment:
+Security Assessment:
+
+Overall Summary:
+The system presents a low security risk based on the provided data. The average CPU and memory usage are within acceptable ranges. Network activity is minimal, and the risk score is low. However, some specific processes and their users warrant further investigation.
+
+Details:
+The most significant point of concern is the `python` process (PID 20069) consuming 26.3% CPU while running as root. This is unusual and should be investigated immediately. Python scripts running as root can be a severe security vulnerability if compromised. Check the origin and purpose of this script.
+
+The `cursor` processes, running under the user `scienmanas`, are using a noticeable amount of memory. While not immediately alarming, it is worth understanding what these processes are and whether their memory consumption is expected. It could be indicative of a memory leak or other performance issues that could potentially be exploited.
+
+The presence of `firefox-bin` and `Xorg` is normal for a desktop environment and their resource consumption appears reasonable.
+
+The network activity is low, suggesting no significant data exfiltration or unauthorized communication is occurring at this time.
+
+Recommendations:
+1. Investigate the `python` process (PID 20069) running as root to determine its purpose and origin. Analyze the script for any potential malicious activity.
+2. Monitor the `cursor` processes for any unusual behavior or resource consumption increases.
+3. Regularly review system logs and security alerts for any signs of suspicious activity.
+4. Ensure all software is up-to-date with the latest security patches.
+
+Conclusion:
+While the initial assessment is low risk, the high CPU usage of a root-owned Python process requires immediate attention to prevent potential security breaches. Continuous monitoring and prompt investigation of unusual activity are crucial for maintaining system security.
+
+
+Detected Anomalies:
