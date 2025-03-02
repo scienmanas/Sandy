@@ -5,9 +5,9 @@ from colorama import Fore, Style
 from dotenv import load_dotenv
 from app.helpers.genai import get_ai_response_textual
 
+# Load env
 load_dotenv()
 VIRUSTOTAL_API_KEY = os.getenv("VIRUSTOTAL_API_KEY")
-
 
 def check_virus_file(file_path="test/virus.bin"):
     

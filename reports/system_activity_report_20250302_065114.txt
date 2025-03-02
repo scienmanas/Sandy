@@ -1,0 +1,42 @@
+System Activity Report
+Generated on: 2025-03-02 06:51:14
+
+Risk Score: 30/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall, the system activity data presents several security concerns that warrant further investigation. The primary issue is the extremely high CPU usage, consistently near 100%, attributed to multiple python3 processes owned by the user "scienmanas". This situation is abnormal and could be indicative of malicious activity such as cryptocurrency mining, a compromised script running in a loop, or an intentional denial-of-service (DoS) attack. While memory usage is moderate, the CPU overload suggests the system's resources are being heavily strained.
+
+Detailed Analysis:
+
+1. High CPU Usage: The most prominent concern is the sustained high CPU usage. The fact that multiple python3 processes are responsible and that these processes are owned by the same user suggests a coordinated activity, either legitimate but resource-intensive or, more concerningly, malicious.
+
+2. User "scienmanas": The activity is linked to a specific user account. It is essential to determine if this user is aware of these processes and if they are running legitimate tasks. If the user's account has been compromised, an attacker could be using these processes for malicious purposes.
+
+3. Python3 Processes: Python scripts are versatile and can be used for both legitimate and malicious purposes. Identifying the specific scripts being executed by these python3 processes is crucial. Checking the file paths and associated arguments of these processes can reveal their true purpose.
+
+4. Network Activity: Although the network data sent and received is relatively low, it is important to analyze the network connections of the python3 processes. Even small amounts of data transferred to suspicious or unknown external IP addresses can indicate communication with a command-and-control (C&C) server.
+
+5. Anomaly Detection and Risk Score: The anomaly detection system correctly identified high CPU usage as an anomaly. A risk score of 30/100 indicates a medium level of risk, emphasizing the need for prompt investigation and remediation.
+
+Recommendations:
+
+1. Investigate Python Scripts: Immediately identify the python scripts being executed by the high-CPU processes. Examine their code for any suspicious activities or connections to external servers.
+
+2. Verify User Activity: Contact user "scienmanas" to verify whether the high CPU usage is due to legitimate activity or if their account has been compromised.
+
+3. Analyze Network Connections: Monitor the network connections of the python3 processes. Check for any suspicious connections to unknown or blacklisted IP addresses.
+
+4. Scan for Malware: Perform a full system scan using an up-to-date antivirus or anti-malware solution to detect any potential malicious software.
+
+5. Monitor System Resources: Continuously monitor CPU and memory usage to identify any further anomalies.
+
+6. Review Security Logs: Analyze system logs for any suspicious events, such as unauthorized login attempts or unusual file modifications.
+
+In conclusion, the high CPU usage due to python3 processes under the user "scienmanas" represents a potential security threat. Immediate investigation and remediation steps are necessary to determine the root cause and mitigate any potential risks.
+
+
+Detected Anomalies:
+- High CPU usage detected

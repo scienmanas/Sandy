@@ -1,0 +1,53 @@
+System Activity Report
+Generated on: 2025-03-02 06:48:59
+
+Risk Score: 0/100
+Risk Level: Low
+
+AI Assessment:
+Security Assessment:
+
+Overall Summary: The system appears to be operating within generally normal parameters, but there are some observations that warrant further investigation. The risk score is low, but anomalies often precede larger security incidents.
+
+Detailed Analysis:
+
+1.  System Information: The system is running Kali Linux, a distribution often used for penetration testing and security auditing. This itself isn't inherently a security concern, but it increases the need for scrutiny and proper hardening. Make sure the system is being used for legitimate purposes and that security best practices are followed.
+
+2.  Resource Usage:
+
+    *   CPU: Average CPU usage is relatively low. However, `python` and `Privileged Cont` processes are consuming significant CPU. The python process running as root should be investigated to determine its purpose. High CPU usage by the Privileged Cont process also warrants investigation.
+
+    *   Memory: Average memory usage is moderate. The `Isolated Web Co` process is using a larger portion of memory than the others. It's important to ensure there is no malicious script running there.
+
+    *   Network: Network activity is minimal.
+
+3.  Top Resource-Intensive Processes:
+
+    *   `python (PID 93275)`:  The high CPU usage by a Python process running as root is a significant red flag.  It needs immediate investigation.  It could be a legitimate system process, but it also could be a malicious script running with elevated privileges. Determine the script's origin and purpose.
+
+    *   `Privileged Cont (PID 2930)`:  The high CPU usage by a Privileged Cont process should be checked.
+
+    *   `mutter-x11-frames`, `Xorg`: These are standard desktop environment processes. Their resource usage seems normal.
+
+    *   `Isolated Web Co (PID 58045)`: This is related to Firefox. 8.4% memory use for a web browser is not unusual, but ensure no malicious scripts are running inside the browser.
+
+4. Detected Anomalies: No anomalies are detected
+
+Recommendations:
+
+1.  Investigate the `python` process running as root immediately. Determine its purpose, origin, and legitimacy. Scan the system for malware.
+
+2.  Monitor CPU usage and memory usage to see if there is any change in usage.
+
+3.  Regularly update the operating system and all installed software to patch security vulnerabilities.
+
+4.  Review system logs for any unusual activity.
+
+5.  Given that this is Kali Linux, ensure proper firewall rules and intrusion detection/prevention systems are in place.
+
+Conclusion:
+
+While the risk is currently low, the high CPU usage of the root python process is a potential security concern that needs immediate attention. A thorough investigation and appropriate remedial actions are necessary to mitigate the risk.
+
+
+Detected Anomalies:

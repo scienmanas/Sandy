@@ -1,0 +1,49 @@
+System Activity Report
+Generated on: 2025-03-02 06:41:52
+
+Risk Score: 0/100
+Risk Level: Low
+
+AI Assessment:
+Security Assessment:
+
+Overall Summary:
+The system activity data presents a mixed picture. While the overall risk is currently assessed as low, several aspects warrant further investigation. The high CPU usage by "gjs", "python", and "Privileged Cont", particularly "gjs" consuming 88% of CPU, is a primary area of concern. Additionally, the relatively high memory usage (82.25%) should be monitored, even though no individual process is currently flagged as excessively memory-intensive. The network activity seems low and does not immediately raise red flags.
+
+Detailed Analysis:
+
+Potential Concerns:
+
+- High CPU Usage by gjs: "gjs" (JavaScript Bindings for GNOME) consuming 88% CPU is highly suspicious. It's possible that the user "scienmanas" is running a script or application that is causing this high CPU utilization. This could be legitimate, but it could also indicate a malicious script (e.g., cryptominer, or a poorly optimized script). This warrants immediate investigation.
+
+- High CPU Usage by Python: A Python process running as root with 28.4% CPU usage should also be investigated. It's important to determine what script is being run and why it requires root privileges and significant CPU.
+
+- CPU Usage by Privileged Cont: The process "Privileged Cont" owned by user "scienmanas" has an elevated cpu usage. The name indicates it is running a container. Privileged containers are inherently risky. Their usage should be carefully considered, and steps should be taken to determine the container's purpose and security configuration.
+
+- Isolated Web Co Memory Usage: Although not consuming much CPU, "Isolated Web Co" (likely a component of a sandboxed web browser process) utilizes 8.3% of memory. This process should be monitored for potential unexpected resource consumption.
+
+- Overall Memory Usage: 82.25% overall memory usage is relatively high, considering the moderate CPU usage. If this is a consistent pattern, it could indicate memory leaks or inefficient memory management by running applications, or a potential memory-based attack.
+
+-User "scienmanas": The user "scienmanas" appears to be running resource-intensive processes ("gjs", "Privileged Cont", and "Isolated Web Co"). Further investigation of the user's activity and the purpose of these processes is warranted.
+
+Recommendations:
+
+1. Investigate gjs: Determine the specific reason for the high CPU usage by the "gjs" process. Examine any scripts or applications being run by the "scienmanas" user that might be related. Consider using process tracing tools (e.g., strace, perf) to understand the process's behavior.
+
+2. Investigate python: Determine the purpose of the python process. Ensure it's running legitimate code and that root privileges are necessary.
+
+3. Investigate Privileged Cont: Determine the source and purpose of this process. Understand its attack surface and whether it can be hardened.
+
+4. Monitor Memory Usage: Track the overall memory usage and identify any processes that exhibit unusual memory consumption patterns over time.
+
+5. Review "scienmanas" activity: Perform a comprehensive review of user "scienmanas" activity to identify any suspicious behavior or unauthorized access.
+
+6. Consider System Hardening: Implement appropriate system hardening measures to mitigate potential security vulnerabilities.
+
+7. Monitor Logs: Configure robust logging and monitoring to capture and analyze system events for early detection of security incidents.
+
+Conclusion:
+While the current risk score is low, the observed CPU usage by specific processes, particularly "gjs", warrant immediate and thorough investigation. Addressing these concerns and implementing the recommended security measures will significantly improve the system's overall security posture. Continued monitoring of system resources and user activity is essential.
+
+
+Detected Anomalies:

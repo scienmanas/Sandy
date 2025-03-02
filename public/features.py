@@ -7,5 +7,4 @@ features = f'''
 {Style.BRIGHT}1. Phishing checker{Style.RESET_ALL}
 {Style.BRIGHT}2. Malware checker{Style.RESET_ALL}
 {Style.BRIGHT}3. System checker{Style.RESET_ALL}
-{Style.BRIGHT}4. Dark Web scanner{Style.RESET_ALL}
 '''
