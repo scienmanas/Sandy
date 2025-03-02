@@ -1,0 +1,28 @@
+System Activity Report
+Generated on: 2025-03-02 08:58:37
+
+Risk Score: 0/100
+Risk Level: Low
+
+AI Assessment:
+Security Assessment:
+
+Overall Summary: The system activity data presents a generally low-risk profile. The average CPU usage is minimal, and although memory usage is relatively high at approximately 80%, it doesn't necessarily indicate malicious activity on its own. The network data transfer is light. However, some aspects warrant further investigation.
+
+Potential Security Concerns and Recommendations:
+
+1.  High CPU usage by python (PID 128903) running as root: A python process consuming 18.2% CPU while running as root is suspicious. It is essential to determine the purpose of this script and verify its legitimacy. If the script's function isn't known, a thorough investigation is critical, including checking its code and network activity. It could be a sign of a backdoor, crypto mining, or other malicious behavior. Check the script's location and owner, as well as the script's contents.
+
+2. High Memory Usage by "Isolated Web Co" Processes: The "Isolated Web Co" processes have a high memory usage, particularly PID 58045 which is using 10.6% memory. It's important to understand what this process is and what it's doing. Since these processes are owned by the user "scienmanas," this suggests that these processes are related to web browsing activities of user "scienmanas" but the name "Isolated Web Co" is ambiguous, further investigation is required to check the exact purpose of each process to confirm their legitimacy
+
+3.  Memory Usage: While the average memory usage is high, without knowing the system's typical memory usage patterns, it's difficult to definitively label it as an anomaly. However, monitor memory usage trends and investigate any sudden spikes.
+
+4.  Anomalies: There are no anomalies detected in the system but a potential anomaly is the high CPU usage by python process that is running as root.
+
+5. Risk Score: Despite the anomalies found in the system, the risk score is still at zero but if proper measures aren't taken, there could be risks involved in the system.
+
+Conclusion:
+While the overall risk is currently low, the suspicious python process and high memory usage by "Isolated Web Co" processes necessitate a thorough investigation. Monitoring these processes and establishing a baseline for normal system behavior is crucial for identifying and mitigating potential security threats. Regular security audits and updates should also be performed to ensure the system's continued security.
+
+
+Detected Anomalies:

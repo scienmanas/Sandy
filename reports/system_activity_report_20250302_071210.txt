@@ -1,0 +1,48 @@
+System Activity Report
+Generated on: 2025-03-02 07:12:10
+
+Risk Score: 30/100
+Risk Level: Medium
+
+AI Assessment:
+Security Assessment:
+
+Overall Summary:
+
+The system activity data indicates a potentially serious security concern due to extremely high CPU usage consistently attributed to multiple python3 processes, all running under the user 'scienmanas'. While memory usage appears moderate, the near-constant pegging of the CPU at very high levels by these processes suggests malicious activity such as cryptomining, a denial-of-service attack, or the execution of a poorly optimized or malicious script. The anomalies detected confirm the high CPU usage as unusual. The risk score of 30/100 indicates a medium level of concern, warranting immediate investigation. The outdated kernel also poses a security risk as there may be unpatched vulnerabilities.
+
+Detailed Analysis:
+
+1.  High CPU Usage: The most prominent issue is the sustained high CPU usage (averaging 96.19%), with multiple python3 processes consuming the vast majority of CPU resources. This is highly abnormal and requires immediate attention. High CPU usage can degrade system performance and potentially mask other malicious activities.
+
+2.  Multiple Python3 Processes: The presence of several python3 processes all with very high CPU utilization points to either a concerted attack or a flawed/malicious application spawning multiple instances. This needs to be thoroughly investigated.
+
+3.  User 'scienmanas': All identified processes are running under the same user account, 'scienmanas'. This suggests that the compromise (if any) is limited to this user's account. However, lateral movement to other accounts or privilege escalation must be considered. The 'scienmanas' account should be immediately scrutinized.
+
+4.  Low Memory Usage: While the CPU usage is alarmingly high, the corresponding memory usage of these processes is very low (0.1% each). This combination is common in cryptomining or other CPU-intensive tasks that don't require significant memory.
+
+5.  Outdated Kernel: The system is running an older kernel version (6.1.12-1kali1). This is a vulnerability because newer kernels contain security patches that may not be present in this version. Outdated software is a common entry point for attackers.
+
+6.  Network Activity: The network data sent and received is relatively low. However, this doesn't necessarily rule out network-based attacks. Cryptominers, for example, can operate with minimal network traffic. Further analysis of network connections established by the python3 processes is required.
+
+Recommendations:
+
+1.  Immediate Investigation: Prioritize investigating the python3 processes. Identify the scripts being executed and their purpose. Determine if these scripts are legitimate or malicious.
+
+2.  User Account Audit: Review the 'scienmanas' user account for suspicious activity, including recent logins, modified files, and installed software.
+
+3.  Malware Scan: Run a comprehensive malware scan on the system, focusing on the 'scienmanas' user's home directory and any directories where the python3 scripts are located.
+
+4.  Network Traffic Analysis: Monitor network traffic originating from the identified python3 processes. Look for connections to known malicious domains or unusual patterns.
+
+5.  Kernel Update: Update the system kernel to the latest stable version to address potential vulnerabilities.
+
+6.  System Hardening: Implement security best practices to harden the system, such as disabling unnecessary services, strengthening password policies, and enabling firewalls.
+
+7.  Resource Monitoring: Implement real-time resource monitoring and alerting to detect and respond to future incidents promptly. Increase the logging levels and enable process accounting.
+
+8.  Containment: If malicious activity is confirmed, isolate the affected system from the network to prevent further damage or spread of the attack.
+
+
+Detected Anomalies:
+- High CPU usage detected
